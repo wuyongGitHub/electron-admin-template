@@ -8,10 +8,56 @@
   ],
   "compilerOptions": {
     "composite": true,
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
+      "@/*": [
+        "src/*"
+      ],
       "@renderer/*": [
         "src/renderer/src/*"
+      ],
+      "@router/*": [
+        "src/renderer/src/router/*"
+      ],
+      "@router": [
+        "src/renderer/src/router"
+      ],
+      "@store/*": [
+        "src/renderer/src/store/*"
+      ],
+      "@store": [
+        "src/renderer/src/store"
+      ],
+      "@views/*": [
+        "src/renderer/src/views/*"
+      ],
+      "@views": [
+        "src/renderer/src/views"
+      ],
+      "@assets/*": [
+        "src/renderer/src/assets/*"
+      ],
+      "@assets": [
+        "src/renderer/src/assets"
+      ],
+      "@components/*": [
+        "src/renderer/src/components/*"
+      ],
+      "@components": [
+        "src/renderer/src/components"
+      ],
+      "@api/*": [
+        "src/renderer/src/api/*"
+      ],
+      "@api": [
+        "src/renderer/src/api"
+      ],
+      "@utils/*": [
+        "src/renderer/src/utils/*"
+      ],
+      "@utils": [
+        "src/renderer/src/utils"
       ]
     }
   }
