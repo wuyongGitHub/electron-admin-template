@@ -8,12 +8,9 @@
   ],
   "compilerOptions": {
     "composite": true,
-    "ignoreDeprecations": "6.0",
+    "ignoreDeprecations": "5.0",
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
       "@renderer/*": [
         "src/renderer/src/*"
       ],
@@ -58,6 +55,12 @@
       ],
       "@utils": [
         "src/renderer/src/utils"
+      ],
+      "@interface/*": [
+        "src/renderer/src/interface/*"
+      ],
+      "@interface": [
+        "src/renderer/src/interface"
       ]
     }
   }

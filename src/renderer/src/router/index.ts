@@ -1,13 +1,19 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+
+//引入路由表
 import { AppRoutes } from './routes'
+//引入导航守卫
 import { beforeEach, afterEach } from './guards'
 
-const AppRouter = createRouter({
+const router = createRouter({
   history: createWebHashHistory(),
   routes: AppRoutes
 })
 
-AppRouter.beforeEach(beforeEach)
-AppRouter.afterEach(afterEach)
+//全局前置导航守卫
+router.beforeEach(beforeEach)
 
-export default AppRouter
+//全局后置导航守卫
+router.afterEach(afterEach)
+
+export default router

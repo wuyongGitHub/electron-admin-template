@@ -1,3 +1,4 @@
+/// <reference types="electron-vite/node" />
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
@@ -51,6 +52,19 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
+
+  // 关闭登录窗口
+  ipcMain.handle('close-login', () => {
+    app.quit()
+  })
+
+  // 窗口拖拽吸附
+  // ipcMain.handle('custom-adsorption', (_event, data) => {
+  //   const win = BrowserWindow.getFocusedWindow()
+  //   if (win) {
+  //     win.setPosition(data.appX, data.appY)
+  //   }
+  // })
 
   createWindow()
 
