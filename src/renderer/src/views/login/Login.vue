@@ -64,7 +64,7 @@
       <div class="login-form">
         <div class="login-header">
           <div class="login-img">
-            <img src="../../assets/images/logo.png" alt="" />
+            <!-- <img src="../../assets/images/logo.png" alt="" /> -->
             <label>{{ $t('login.systemName') }}</label>
           </div>
         </div>
