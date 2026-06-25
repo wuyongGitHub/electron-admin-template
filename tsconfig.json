@@ -4,6 +4,9 @@
     "ignoreDeprecations": "5.0",
     "baseUrl": ".",
     "paths": {
+      "@*": [
+        "src/renderer/src/*"
+      ],
       "@renderer/*": ["src/renderer/src/*"],
       "@router/*": ["src/renderer/src/router/*"],
       "@store/*": ["src/renderer/src/store/*"],
