@@ -3,6 +3,8 @@
 <p align="center">An Electron application with Vue3 and TypeScript</p>
 
 <p align="center">
+  ![Uploading image.png…]()
+
 <img src="https://img.shields.io/github/package-json/dependency-version/alex8088/electron-vite-boilerplate/dev/electron" alt="electron-version">
 <img src="https://img.shields.io/github/package-json/dependency-version/alex8088/electron-vite-boilerplate/dev/electron-vite" alt="electron-vite-version" />
 <img src="https://img.shields.io/github/package-json/dependency-version/alex8088/electron-vite-boilerplate/dev/electron-builder" alt="electron-builder-version" />
