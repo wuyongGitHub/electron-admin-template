@@ -80,7 +80,7 @@
           <el-divider>{{ $t('login.signInOther') }}</el-divider>
           <div class="login-oauth">
             <!--微信按钮-->
-            <el-button type="success" circle size="large">
+            <el-button type="success" @click="weChartLogin" circle size="large">
               <el-icon size="large">
                 <ChatDotRound />
               </el-icon>
@@ -127,7 +127,14 @@ const mousedown = (event: MouseEvent) => {
     isKeyDown.value = false
   }
 }
-
+// 微信扫码登录
+const weChartLogin = (): void => {
+  window.electron.ipcRenderer.invoke('weChat-login', {
+    name: 'wx',
+    event: 'event',
+    data: null
+  })
+}
 //关闭软件
 const closeWin = (): void => {
   window.electron.ipcRenderer.invoke('close-login')

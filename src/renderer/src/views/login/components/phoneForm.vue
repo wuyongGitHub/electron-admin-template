@@ -60,7 +60,7 @@ const validatorTel = (_rule: object, value: string, callback: (msg?: Error) => v
 }
 const rules = reactive<FormRules<PhoneRuleForm>>({
   mobile: [{ validator: validatorTel, trigger: 'blur' }],
-  captcha: [{ required: true, message: '请输入密码', trigger: 'blur' }]
+  captcha: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
 })
 const time = ref<number>(60)
 const disabled = ref<boolean>(false)
@@ -76,7 +76,7 @@ const getCode = async () => {
   const res = await loginCaptcha({
     mobile: Encrypt(ruleForm.mobile)
   })
-
+  console.log('获取验证码', res)
   if (res.code != '200') return ElMessage.error(res.msg)
 
   ElMessage.success('发送成功')

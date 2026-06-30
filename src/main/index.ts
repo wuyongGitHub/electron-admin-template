@@ -7,10 +7,12 @@ import icon from '../../resources/icon.png?asset'
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 1200,
+    height: 800,
     show: false,
+    frame: false, // 无边框窗口
     autoHideMenuBar: true,
+    alwaysOnTop: true, // 窗口置顶,永远最上层
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -58,13 +60,58 @@ app.whenReady().then(() => {
     app.quit()
   })
 
+  // 微信扫码登录
+  ipcMain.handle('weChat-login', (_event, data) => {
+    const weixinWidows = new BrowserWindow({
+      minWidth: 900,
+      minHeight: 670,
+      // resizable: false, // 无法调整窗口大小
+      show: false,
+      autoHideMenuBar: true,
+      // titleBarStyle: 'hidden',
+      frame: false, // 无边框窗口
+      ...(process.platform === 'linux' ? { icon } : {}),
+      webPreferences: {
+        preload: join(__dirname, '../preload/index.js'),
+        sandbox: false
+      }
+    })
+
+    weixinWidows.on('ready-to-show', () => {
+      weixinWidows.show()
+    })
+    // 打开微信提供的页面
+    weixinWidows.loadURL('https://www.baidu.com')
+
+    // 监听所有类型的 URL 变化
+    const handleUrlChange = (): void => {
+      console.log('URL changed:', weixinWidows.webContents.getURL())
+    }
+
+    weixinWidows.webContents.on('will-navigate', (_e, url) => {
+      console.log('will-navigate:', url)
+    })
+
+    weixinWidows.webContents.on('did-navigate', (_e, url) => {
+      console.log('did-navigate:', url)
+    })
+
+    weixinWidows.webContents.on('did-navigate-in-page', (_e, url) => {
+      console.log('did-navigate-in-page:', url)
+    })
+
+    weixinWidows.webContents.on('did-redirect-navigation', (_e, url) => {
+      console.log('did-redirect-navigation:', url)
+    })
+  })
+
   // 窗口拖拽吸附
-  // ipcMain.handle('custom-adsorption', (_event, data) => {
-  //   const win = BrowserWindow.getFocusedWindow()
-  //   if (win) {
-  //     win.setPosition(data.appX, data.appY)
-  //   }
-  // })
+  ipcMain.handle('custom-adsorption', (_event, data) => {
+    const win = BrowserWindow.getFocusedWindow()
+    if (win) {
+      win.setPosition(data.appX, data.appY)
+    }
+  })
 
   createWindow()
 
