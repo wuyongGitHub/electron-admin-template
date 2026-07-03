@@ -80,9 +80,8 @@ const getCaptcha = async () => {
   const key: string = new Date().getTime().toString()
   ruleForm.key = key
   const res = await captchaImage({ key })
-  const blob = new Blob([res.data], { type: 'image/png' })
+  const blob = new Blob([res], { type: 'image/png' })
   const imgUrl = URL.createObjectURL(blob)
-  console.log('我是验证码图片连接', imgUrl)
   captchaUrl.value = imgUrl
 }
 
