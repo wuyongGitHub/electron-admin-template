@@ -183,6 +183,7 @@ const configLang = (item: { name: string; value: string }) => {
   height: 100vh;
   background-color: #fff;
   display: flex;
+  user-select: none;
 }
 .login_adv {
   background: url('../../assets/images/auth_banner.jpg') no-repeat;
