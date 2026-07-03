@@ -55,6 +55,12 @@ app.whenReady().then(() => {
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
 
+  // 最小化窗口
+  ipcMain.handle('minimize-login', () => {
+    const win = BrowserWindow.getFocusedWindow()
+    if (win) win.minimize()
+  })
+
   // 关闭登录窗口
   ipcMain.handle('close-login', () => {
     app.quit()

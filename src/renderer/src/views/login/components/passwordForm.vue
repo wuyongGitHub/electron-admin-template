@@ -5,7 +5,7 @@
         v-model="ruleForm.username"
         prefix-icon="user"
         clearable
-        placeholder="请输入用户名"
+        :placeholder="$t('login.userPlaceholder')"
       ></el-input>
     </el-form-item>
 
@@ -15,7 +15,7 @@
         prefix-icon="lock"
         clearable
         show-password
-        placeholder="请输入密码"
+        :placeholder="$t('login.PWPlaceholder')"
       ></el-input>
     </el-form-item>
 
@@ -25,7 +25,7 @@
           v-model="ruleForm.captcha"
           prefix-icon="CircleCheck"
           clearable
-          placeholder="请输入验证码"
+          :placeholder="$t('login.captchaPlaceholder')"
         ></el-input>
         <el-image class="code" :src="captchaUrl" @click="getCaptcha"></el-image>
       </div>
@@ -33,10 +33,10 @@
 
     <div class="remember">
       <div>
-        <el-checkbox label="记住密码"></el-checkbox>
+        <el-checkbox :label="$t('login.rememberMe')"></el-checkbox>
       </div>
       <div>
-        <router-link to="">忘记密码?</router-link>
+        <router-link to="">{{ $t('login.forgetPassword') }}</router-link>
       </div>
     </div>
 
@@ -47,7 +47,7 @@
         style="width: 100%"
         :loading="isLogin"
         @click="login(ruleFormRef)"
-        >登录</el-button
+        >{{ $t('login.signIn') }}</el-button
       >
     </el-form-item>
   </el-form>

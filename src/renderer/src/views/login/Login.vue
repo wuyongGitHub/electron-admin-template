@@ -40,6 +40,9 @@
           <el-icon v-else><Moon /></el-icon>
         </el-button>
 
+        <!--最小化-->
+        <el-button icon="minus" circle type="default" @click="minimizeWin"></el-button>
+
         <!--关闭软件-->
         <el-button icon="close" circle type="default" @click="closeWin"></el-button>
       </div>
@@ -135,6 +138,11 @@ const weChartLogin = (): void => {
     data: null
   })
 }
+//最小化窗口
+const minimizeWin = (): void => {
+  window.electron.ipcRenderer.invoke('minimize-login')
+}
+
 //关闭软件
 const closeWin = (): void => {
   window.electron.ipcRenderer.invoke('close-login')
@@ -275,9 +283,9 @@ const configLang = (item: { name: string; value: string }) => {
 }
 .login-config-btn {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  width: 120px;
+  gap: 8px;
   margin: 10px 10px 0 0;
   float: right;
 }
