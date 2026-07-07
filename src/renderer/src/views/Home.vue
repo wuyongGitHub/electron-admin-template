@@ -5,19 +5,13 @@
   </div>
 </template>
 
-<script setup>
-import { useStore } from "@store"
-let store = useStore();
-import { loginByJson } from "@api/login";
-const login = async () => {
-  const res = await loginByJson({
-    username: "admin",
-    password: "<PASSWORD>",
-  });
-  console.log(res);
-};
-login();
+<script setup lang="ts">
+import { onBeforeMount } from 'vue';
+onBeforeMount(() => { 
+  window.electron.ipcRenderer.invoke("resize-window");
+
+})
 </script>
-<style scoped>
+<style scoped >
 
 </style>

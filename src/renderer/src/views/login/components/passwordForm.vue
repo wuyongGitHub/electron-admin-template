@@ -107,7 +107,9 @@ const login = async (formEl: FormInstance | undefined) => {
         captcha: ruleForm.captcha
       })
       if (res.code != '200') {
-        return ElMessage.error(res.msg)
+        ElMessage.error(res.msg)
+        isLogin.value = false
+        return
       }
       const token = res.data
       localStorage.setItem('TOKEN', token || '')
@@ -116,7 +118,9 @@ const login = async (formEl: FormInstance | undefined) => {
       await useUserStore().getUserInfo();
       // 获取路由
       await useMenuStore().getMenu();
-      // router.push('/') // 跳转首页
+      // 调整窗口大小
+      window.electron.ipcRenderer.invoke('resize-window')
+      router.push('/') // 跳转首页
       isLogin.value = false
     } else {
       ElMessage.warning('请填写正确内容')

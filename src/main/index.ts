@@ -4,9 +4,11 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
+let mainWindow: BrowserWindow | null = null
+
 function createWindow(): void {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  const win = new BrowserWindow({
     width: 1200,
     height: 800,
     show: false,
@@ -20,11 +22,11 @@ function createWindow(): void {
     }
   })
 
-  mainWindow.on('ready-to-show', () => {
-    mainWindow.show()
+  win.on('ready-to-show', () => {
+    win.show()
   })
 
-  mainWindow.webContents.setWindowOpenHandler((details) => {
+  win.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url)
     return { action: 'deny' }
   })
@@ -32,10 +34,12 @@ function createWindow(): void {
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
+    win.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {
-    mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
+    win.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  mainWindow = win
 }
 
 // This method will be called when Electron has finished
@@ -117,6 +121,21 @@ app.whenReady().then(() => {
     if (win) {
       win.setPosition(data.appX, data.appY)
     }
+  })
+
+  // 窗口大小调整（登录成功后进入主界面）
+  ipcMain.handle('resize-window', () => {
+    if (!mainWindow) return
+    // 取消置顶
+    mainWindow.setAlwaysOnTop(false)
+    // 窗口大小可以修改
+    mainWindow.setResizable(true)
+    // 窗口最小值
+    mainWindow.setMinimumSize(1000, 500)
+    // 窗口大小
+    mainWindow.setSize(1200, 720)
+    // 窗口居中
+    mainWindow.center()
   })
 
   createWindow()

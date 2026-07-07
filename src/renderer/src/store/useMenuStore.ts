@@ -13,10 +13,8 @@ export const useMenuStore = defineStore('menuId', {
   getters: {},
   actions: {
     async getMenu() { 
-      const res = await getUserMenu(useUserStore().rolePerm)
-      console.log("res",res.data)
-      const { data } = res.data;
-      this.menu = data;
+      const res = await getUserMenu(useUserStore().rolePerm);
+      this.menu = res.data;
     }
   },
   persist: {

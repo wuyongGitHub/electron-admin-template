@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { getInfo } from '@api/user'
-import { Role } from '@interface/login'
+import { Role } from '@interface/user'
 export const useUserStore = defineStore('userId', {
   state: (): {
     roles: Role[]
@@ -15,10 +15,9 @@ export const useUserStore = defineStore('userId', {
   actions: {
     async getUserInfo() {
       const res = await getInfo()
-      const { permission, roles, units, userInfo } = res.data;
+      const { roles, units, userInfo } = res.data;
       this.roles = roles;
       this.rolePerm = roles[0].rolePerm;
-      console.log(res)
     }
   },
   persist: {
