@@ -171,6 +171,7 @@ const config = reactive({
   ]
 })
 const configLang = (item: { name: string; value: string }) => {
+  console.log("proxy:",proxy)
   const $i18n = proxy?.$i18n
   $i18n!.locale = item.value
   localStorage.setItem('lang', item.value)

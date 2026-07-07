@@ -1,29 +1,52 @@
-import axios from 'axios'
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
-const request = axios.create({
-  baseURL: '/api'
-})
+const request: AxiosInstance = axios.create({
+    baseURL: '/api'
+});
 
 // 添加请求拦截器
-// eslint-disable-next-line prettier/prettier
-request.interceptors.request.use(
-  function (config) {
-    return config
-  },
-  function (error) {
-    // 对请求错误做些什么
-    return Promise.reject(error)
+request.interceptors.request.use(function (config) {
+  let token:string = localStorage.getItem("TOKEN")
+  if(token){
+    config.headers.Authorization = token
   }
-)
+    return config;
+}, function (error) {
+    return Promise.reject(error);
+});
 
 // 添加响应拦截器
-request.interceptors.response.use(
-  function (response) {
-    return response.data
-  },
-  function (error) {
-    return Promise.reject(error)
-  }
-)
+request.interceptors.response.use(function (response) {
+    return response;
+}, function (error) {
+    return Promise.reject(error);
+});
 
-export default request
+const http = {
+    get<T>(url: string, params?: unknown, config?: object): Promise<T> {
+      return new Promise((resolve, reject) => {
+        request
+          .get<T>(url, { params,...config } )
+          .then((res: AxiosResponse<T>) => {
+            resolve(res.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    post<T>(url: string, data?: unknown, config?: object): Promise<T> {
+      return new Promise((resolve, reject) => {
+        request
+          .post<T>(url, data, config)
+          .then((res: AxiosResponse<T>) => {
+            resolve(res.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+};
+  
+export default http;

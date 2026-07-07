@@ -3,7 +3,6 @@ export const beforeEach = (to) => {
   if (to.path == '/login') {
     return
   }
-
   if (!localStorage.getItem('TOKEN')) {
     return '/login'
   }

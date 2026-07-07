@@ -59,6 +59,9 @@ import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { captchaImage, loginByJson } from '@api/login'
 import { Encrypt } from '@utils/aes'
 import { UserRuleForm } from '@interface/login'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@store/useUserStore'  
+import { useMenuStore } from '@store/useMenuStore'
 
 const captchaUrl = ref<string>('')
 const ruleFormRef = ref<FormInstance>()
@@ -68,6 +71,7 @@ const ruleForm = reactive<UserRuleForm>({
   key: '',
   captcha: ''
 })
+const router = useRouter()
 
 const rules = reactive<FormRules<UserRuleForm>>({
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
@@ -103,9 +107,17 @@ const login = async (formEl: FormInstance | undefined) => {
         captcha: ruleForm.captcha
       })
       if (res.code != '200') {
-        ElMessage.error(res.msg)
-        return
+        return ElMessage.error(res.msg)
       }
+      const token = res.data
+      localStorage.setItem('TOKEN', token || '')
+
+      // 获取用户信息
+      await useUserStore().getUserInfo();
+      // 获取路由
+      await useMenuStore().getMenu();
+      // router.push('/') // 跳转首页
+      isLogin.value = false
     } else {
       ElMessage.warning('请填写正确内容')
     }

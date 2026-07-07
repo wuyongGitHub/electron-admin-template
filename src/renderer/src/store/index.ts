@@ -1,16 +1,17 @@
 import { defineStore } from 'pinia'
 // 用户
+import { useUserStore } from './useUserStore'
+// 菜单
+import { useMenuStore } from './useMenuStore'
+
 export const useStore = defineStore('storeId', {
   state: () => {
     return {
-      counter: 1000,
-      token: 'xxxxxxxxxxxxxxtokenxxxxxxxxxxxxxx'
+      userStore: useUserStore(), // 用户
+      menuStore: useMenuStore() // 菜单
     }
   },
-  getters: {},
-  actions: {},
-  persist: {
-    storage: localStorage,
-    pick: ['token'] // 需要缓存的字段（v4.x 用 pick 替代 paths）
-  }
+  getters:{},
+  actions: {}
 })
+
